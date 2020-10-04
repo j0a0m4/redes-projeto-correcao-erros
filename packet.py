@@ -40,20 +40,23 @@ def generate_parity_bit(packet: list) -> bool:
         return 1
 
 
-def transpose_columns(matrix: list) -> list:
+def add_parity_bit(packet: list) -> list:
+    newPacket: list = packet.copy()
+    newPacket.append(generate_parity_bit(packet))
+    return newPacket
+
+
+def transpose_columns(packetMatrix: list) -> list:
     '''
         transpose_columns transforma as colunas de uma matriz nas linhas de uma matriz
 
         Argumentos: \n
         matrix -- uma lista de listas (matriz)
     '''
-    height: int = len(matrix)
-    width: int = len(matrix[0])
+    height: int = len(packetMatrix)
+    width: int = len(packetMatrix[0])
 
     return [
-        [matrix[j][i] for j in range(height)]
+        [packetMatrix[j][i] for j in range(height)]
         for i in range(width)
     ]
-
-
-# def codePacket(originalPacket: list) -> list:
