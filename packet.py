@@ -41,6 +41,12 @@ def generate_parity_bit(packet: list) -> bool:
 
 
 def add_parity_bit(packet: list) -> list:
+    '''
+        add_parity_bit retorna uma lista acrescentado do bit de paridade
+
+        Argumentos: \n
+        packet -- uma lista contendo os bits
+    '''
     newPacket: list = packet.copy()
     newPacket.append(generate_parity_bit(packet))
     return newPacket
