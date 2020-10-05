@@ -5,6 +5,7 @@ def is_even(number: int) -> bool:
     Argumentos:\n
     number: um número inteiro
     '''
+
     return number % 2 == 0
 
 
@@ -15,6 +16,7 @@ def is_odd(number: int) -> bool:
     Argumentos:\n
     number: um número inteiro
     '''
+
     return not is_even(number)
 
 
@@ -37,6 +39,7 @@ def add_parity_bit(packet: list) -> list:
     Argumentos: \n
     packet -- uma lista contendo os bits
     '''
+
     return packet.copy() + [generate_parity_bit(packet)]
 
 
@@ -47,6 +50,7 @@ def get_parity_bit(packet: list) -> bool:
     Argumentos: \n
     packet -- uma lista contendo os bits
     '''
+
     return packet[-1]
 
 
@@ -57,6 +61,7 @@ def get_actual_packet(packet: list) -> list:
     Argumentos: \n
     packet -- uma lista contendo os bits
     '''
+
     return packet[:-1]
 
 
@@ -69,6 +74,7 @@ def check_packet_integrity(packet: list) -> bool:
     '''
     parityBit: int = get_parity_bit(packet)
     actualPacket: list = get_actual_packet(packet)
+
     return generate_parity_bit(actualPacket) == parityBit
 
 
@@ -95,6 +101,7 @@ def reduce_line_parity_bit(packetMatrix: list) -> list:
     Argumentos: \n
     packetMatrix -- uma lista de listas (matriz)
     '''
+
     return [
         add_parity_bit(packet)
         for packet in packetMatrix
@@ -108,6 +115,7 @@ def reduce_column_parity_bit(packetMatrix: list) -> list:
     Argumentos: \n
     packetMatrix -- uma lista de listas (matriz)
     '''
+
     return [
         generate_parity_bit(packet)
         for packet in transpose_columns(packetMatrix)
@@ -125,7 +133,4 @@ def code_packet(originalPacket: list) -> list:
     columnParity: list = reduce_column_parity_bit(originalPacket)
     lineParity: list = reduce_line_parity_bit(originalPacket)
 
-    encodedPacket: list = lineParity.copy()
-    encodedPacket.append(columnParity)
-
-    return encodedPacket
+    return lineParity.copy() + [columnParity.copy()]
