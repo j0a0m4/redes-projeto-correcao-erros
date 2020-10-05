@@ -61,7 +61,7 @@ def should_transpose_columns():
     ], "Should be transposed"
 
 
-def should_reduce_parity_bit():
+def should_reduce_line_parity_bit():
     assert reduce_line_parity_bit([
         [0, 1, 1, 0],
         [1, 1, 1, 0],
@@ -87,10 +87,27 @@ def should_reduce_parity_bit():
     ], "Should have simple parity bit"
 
 
+def should_reduce_column_parity_bit():
+    assert reduce_column_parity_bit([
+        [0, 1, 1, 0],
+        [1, 1, 1, 0],
+        [1, 1, 1, 1],
+        [1, 0, 0, 0]
+    ]) == [1, 1, 1, 1], "Should create parity bit column list"
+
+    assert reduce_column_parity_bit([
+        [0, 1, 0, 0],
+        [1, 1, 0, 0],
+        [0, 1, 1, 1],
+        [1, 0, 1, 0]
+    ]) == [0, 1, 0, 1], "Should create parity bit column list"
+
+
 if __name__ == '__main__':
     should_generate_parity_bit()
     should_add_parity_bit()
     should_check_packet_integrity()
     should_transpose_columns()
-    should_reduce_parity_bit()
+    should_reduce_line_parity_bit()
+    should_reduce_column_parity_bit()
     print("Testes passaram!")

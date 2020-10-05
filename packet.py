@@ -27,10 +27,10 @@ def count_one_bit(accumulator: int, bit: int) -> int:
 
 def generate_parity_bit(packet: list) -> bool:
     '''
-        generate_parity_bit retorna o bit de paridade adequado para um pacote, usando a paridade par
+    generate_parity_bit retorna o bit de paridade adequado para um pacote, usando a paridade par
 
-        Argumentos: \n
-        packet -- uma lista contendo os bits
+    Argumentos: \n
+    packet -- uma lista contendo os bits
     '''
     totalOneBits: int = reduce(count_one_bit, packet)
 
@@ -42,10 +42,10 @@ def generate_parity_bit(packet: list) -> bool:
 
 def add_parity_bit(packet: list) -> list:
     '''
-        add_parity_bit retorna uma lista acrescentado do bit de paridade
+    add_parity_bit retorna uma lista acrescentado do bit de paridade
 
-        Argumentos: \n
-        packet -- uma lista contendo os bits
+    Argumentos: \n
+    packet -- uma lista contendo os bits
     '''
     newPacket: list = packet.copy()
     newPacket.append(generate_parity_bit(packet))
@@ -54,30 +54,30 @@ def add_parity_bit(packet: list) -> list:
 
 def get_parity_bit(packet: list) -> bool:
     '''
-        get_parity_bit retorna o bit de paridade de um packet (último elemento da lista)
+    get_parity_bit retorna o bit de paridade de um packet (último elemento da lista)
 
-        Argumentos: \n
-        packet -- uma lista contendo os bits
+    Argumentos: \n
+    packet -- uma lista contendo os bits
     '''
     return packet[-1]
 
 
 def get_actual_packet(packet: list) -> list:
     '''
-        get_actual_packet o packet sem o bit de paridade (último elemento da lista) sem
+    get_actual_packet o packet sem o bit de paridade (último elemento da lista) sem
 
-        Argumentos: \n
-        packet -- uma lista contendo os bits
+    Argumentos: \n
+    packet -- uma lista contendo os bits
     '''
     return packet[:-1]
 
 
 def check_packet_integrity(packet: list) -> bool:
     '''
-       check_packet_integrity retorna se um pacote está integro u não
+    check_packet_integrity retorna se um pacote está integro u não
 
-        Argumentos: \n
-        packet -- uma lista contendo os bits
+    Argumentos: \n
+    packet -- uma lista contendo os bits
     '''
     parityBit: int = get_parity_bit(packet)
     actualPacket: list = get_actual_packet(packet)
@@ -86,10 +86,10 @@ def check_packet_integrity(packet: list) -> bool:
 
 def transpose_columns(packetMatrix: list) -> list:
     '''
-        transpose_columns transforma as colunas de uma matriz nas linhas de uma matriz
+    transpose_columns transforma as colunas de uma matriz nas linhas de uma matriz
 
-        Argumentos: \n
-        matrix -- uma lista de listas (matriz)
+    Argumentos: \n
+    packetMatrix -- uma lista de listas (matriz)
     '''
     height: int = len(packetMatrix)
     width: int = len(packetMatrix[0])
@@ -102,12 +102,25 @@ def transpose_columns(packetMatrix: list) -> list:
 
 def reduce_line_parity_bit(packetMatrix: list) -> list:
     '''
-        reduce_line_parity_bit adiciona um bit de paridade a cada linha de uma matriz
+    reduce_line_parity_bit adiciona um bit de paridade a cada linha de uma matriz
 
-        Argumentos: \n
-        matrix -- uma lista de listas (matriz)
+    Argumentos: \n
+    packetMatrix -- uma lista de listas (matriz)
     '''
     return [
         add_parity_bit(packet)
         for packet in packetMatrix
+    ]
+
+
+def reduce_column_parity_bit(packetMatrix: list) -> list:
+    '''
+    reduce_column_parity_bit gera uma lista contendo as paridades de coluna
+
+    Argumentos: \n
+    packetMatrix -- uma lista de listas (matriz)
+    '''
+    return [
+        generate_parity_bit(packet)
+        for packet in transpose_columns(packetMatrix)
     ]
