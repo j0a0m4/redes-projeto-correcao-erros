@@ -1,7 +1,7 @@
 from functools import partial, reduce
 
 
-def isEven(number: int) -> bool:
+def is_even(number: int) -> bool:
     '''
     isEven verifica se um número é par
 
@@ -34,7 +34,7 @@ def generate_parity_bit(packet: list) -> bool:
     '''
     totalOneBits: int = reduce(count_one_bit, packet)
 
-    if isEven(totalOneBits):
+    if is_even(totalOneBits):
         return 0
     else:
         return 1
