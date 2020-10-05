@@ -1,6 +1,3 @@
-from functools import reduce
-
-
 def is_even(number: int) -> bool:
     '''
     is_even verifica se um número é par
@@ -11,18 +8,14 @@ def is_even(number: int) -> bool:
     return number % 2 == 0
 
 
-def count_one_bit(accumulator: int, bit: int) -> int:
+def is_odd(number: int) -> bool:
     '''
-    count_one_bit é um reducer que conta o número de bits 1 de uma lista
+    is_odd verifica se um número é ímpar
 
-    Argumentos: \n
-    accumulator -- o total de bits um da lista, começa com o primeiro elemento \n
-    bit -- o bit atual da lista
+    Argumentos:\n
+    number: um número inteiro
     '''
-    if bit == 1:
-        return accumulator + 1
-    else:
-        return accumulator
+    return not is_even(number)
 
 
 def generate_parity_bit(packet: list) -> bool:
@@ -32,12 +25,9 @@ def generate_parity_bit(packet: list) -> bool:
     Argumentos: \n
     packet -- uma lista contendo os bits
     '''
-    totalOneBits: int = reduce(count_one_bit, packet)
+    totalOneBits: int = packet.count(1)
 
-    if is_even(totalOneBits):
-        return 0
-    else:
-        return 1
+    return is_odd(totalOneBits)
 
 
 def add_parity_bit(packet: list) -> list:
@@ -47,9 +37,7 @@ def add_parity_bit(packet: list) -> list:
     Argumentos: \n
     packet -- uma lista contendo os bits
     '''
-    newPacket: list = packet.copy()
-    newPacket.append(generate_parity_bit(packet))
-    return newPacket
+    return packet.copy() + [generate_parity_bit(packet)]
 
 
 def get_parity_bit(packet: list) -> bool:
