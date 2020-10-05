@@ -14,4 +14,4 @@ Funcionalidades utilizadas:
 - [Type Hints](https://docs.python.org/3/library/typing.html)
 - [Func Tools](https://docs.python.org/3/library/functools.html)
 - [Doc String](https://www.python.org/dev/peps/pep-0257/)
-= [fstring](https://www.python.org/dev/peps/pep-0498/)
+- [fstring](https://www.python.org/dev/peps/pep-0498/)
