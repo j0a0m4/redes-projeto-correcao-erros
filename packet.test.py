@@ -1,4 +1,4 @@
-from packet import generate_parity_bit, transpose_columns, add_parity_bit, check_packet_integrity
+from packet import *
 
 
 def should_generate_parity_bit():
@@ -36,11 +36,55 @@ def should_check_packet_integrity():
 
 
 def should_transpose_columns():
-    assert transpose_columns([[0, 1, 1, 0], [1, 1, 1, 0], [1, 1, 1, 1], [1, 0, 0, 0]]) == [
-        [0, 1, 1, 1], [1, 1, 1, 0], [1, 1, 1, 0], [0, 0, 1, 0]], "Should be transposed"
+    assert transpose_columns([
+        [0, 1, 1, 0],
+        [1, 1, 1, 0],
+        [1, 1, 1, 1],
+        [1, 0, 0, 0]
+    ]) == [
+        [0, 1, 1, 1],
+        [1, 1, 1, 0],
+        [1, 1, 1, 0],
+        [0, 0, 1, 0]
+    ], "Should be transposed"
 
-    assert transpose_columns([[1, 0, 0, 0], [1, 1, 0, 0], [1, 1, 1, 0], [1, 1, 1, 1]]) == [
-        [1, 1, 1, 1], [0, 1, 1, 1], [0, 0, 1, 1], [0, 0, 0, 1]], "Should be transposed"
+    assert transpose_columns([
+        [1, 0, 0, 0],
+        [1, 1, 0, 0],
+        [1, 1, 1, 0],
+        [1, 1, 1, 1]
+    ]) == [
+        [1, 1, 1, 1],
+        [0, 1, 1, 1],
+        [0, 0, 1, 1],
+        [0, 0, 0, 1]
+    ], "Should be transposed"
+
+
+def should_reduce_parity_bit():
+    assert reduce_parity_bit([
+        [0, 1, 1, 0],
+        [1, 1, 1, 0],
+        [1, 1, 1, 1],
+        [1, 0, 0, 0]
+    ]) == [
+        [0, 1, 1, 0, 0],
+        [1, 1, 1, 0, 1],
+        [1, 1, 1, 1, 0],
+        [1, 0, 0, 0, 1]
+    ], "Should have simple parity bit"
+
+    assert reduce_parity_bit([
+        [0, 1, 0, 0],
+        [1, 1, 1, 0],
+        [1, 1, 1, 1],
+        [1, 0, 1, 0]
+    ]) == [
+        [0, 1, 0, 0, 1],
+        [1, 1, 1, 0, 1],
+        [1, 1, 1, 1, 0],
+        [1, 0, 1, 0, 0]
+    ], "Should have simple parity bit"
 
 
 if __name__ == '__main__':
@@ -48,4 +92,5 @@ if __name__ == '__main__':
     should_add_parity_bit()
     should_check_packet_integrity()
     should_transpose_columns()
+    should_reduce_parity_bit()
     print("Testes passaram!")
