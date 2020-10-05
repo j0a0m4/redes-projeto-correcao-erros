@@ -127,6 +127,13 @@ def reduce_column_parity_bit(packetMatrix: list) -> list:
 
 
 def code_packet(originalPacket: list) -> list:
+    '''
+    code_packet gera uma matriz contendo as paridades de linha e coluna do pacote
+
+    Argumentos: \n
+    originalPacket -- pacote original a ser codificado na forma de uma lista.
+    '''
+
     columnParity: list = reduce_column_parity_bit(originalPacket)
     lineParity: list = reduce_line_parity_bit(originalPacket)
 
