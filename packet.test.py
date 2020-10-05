@@ -103,6 +103,63 @@ def should_reduce_column_parity_bit():
     ]) == [0, 1, 0, 1], "Should create parity bit column list"
 
 
+def should_code_packet():
+    assert code_packet([
+        [0, 1, 1, 0],
+        [1, 1, 1, 0],
+        [1, 1, 1, 1],
+        [1, 0, 0, 0]
+    ]) == [
+        [0, 1, 1, 0, 0],
+        [1, 1, 1, 0, 1],
+        [1, 1, 1, 1, 0],
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 1]
+
+    ], "Should encode packet"
+
+    assert code_packet([
+        [0, 1, 0, 0],
+        [1, 1, 0, 0],
+        [0, 1, 1, 1],
+        [1, 0, 1, 0]
+    ]) == [
+        [0, 1, 0, 0, 1],
+        [1, 1, 0, 0, 0],
+        [0, 1, 1, 1, 1],
+        [1, 0, 1, 0, 0],
+        [0, 1, 0, 1]
+
+    ], "Should encode packet"
+
+    assert code_packet([
+        [0, 0, 0, 0],
+        [1, 1, 1, 1],
+        [1, 1, 0, 0],
+        [1, 0, 1, 0]
+    ]) == [
+        [0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 0],
+        [1, 1, 0, 0, 0],
+        [1, 0, 1, 0, 0],
+        [1, 0, 0, 1]
+
+    ], "Should encode packet"
+
+    assert code_packet([
+        [1, 0, 0, 0],
+        [1, 1, 1, 0],
+        [0, 1, 0, 0],
+        [1, 0, 1, 1]
+    ]) == [
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 0, 1],
+        [0, 1, 0, 0, 1],
+        [1, 0, 1, 1, 1],
+        [1, 0, 0, 1]
+    ], "Should encode packet"
+
+
 if __name__ == '__main__':
     should_generate_parity_bit()
     should_add_parity_bit()
@@ -110,4 +167,5 @@ if __name__ == '__main__':
     should_transpose_columns()
     should_reduce_line_parity_bit()
     should_reduce_column_parity_bit()
+    should_code_packet()
     print("Testes passaram!")

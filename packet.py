@@ -1,4 +1,4 @@
-from functools import reduce
+from functools import partial, reduce
 
 
 def isEven(number: int) -> bool:
@@ -124,3 +124,13 @@ def reduce_column_parity_bit(packetMatrix: list) -> list:
         generate_parity_bit(packet)
         for packet in transpose_columns(packetMatrix)
     ]
+
+
+def code_packet(originalPacket: list) -> list:
+    columnParity: list = reduce_column_parity_bit(originalPacket)
+    lineParity: list = reduce_line_parity_bit(originalPacket)
+
+    encodedPacket: list = lineParity.copy()
+    encodedPacket.append(columnParity)
+
+    return encodedPacket
