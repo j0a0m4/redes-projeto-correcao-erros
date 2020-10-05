@@ -100,9 +100,9 @@ def transpose_columns(packetMatrix: list) -> list:
     ]
 
 
-def reduce_parity_bit(packetMatrix: list) -> list:
+def reduce_line_parity_bit(packetMatrix: list) -> list:
     '''
-        reduce_parity_bit adiciona um bit de paridade a cada linha de uma matriz
+        reduce_line_parity_bit adiciona um bit de paridade a cada linha de uma matriz
 
         Argumentos: \n
         matrix -- uma lista de listas (matriz)

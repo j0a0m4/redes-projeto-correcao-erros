@@ -62,7 +62,7 @@ def should_transpose_columns():
 
 
 def should_reduce_parity_bit():
-    assert reduce_parity_bit([
+    assert reduce_line_parity_bit([
         [0, 1, 1, 0],
         [1, 1, 1, 0],
         [1, 1, 1, 1],
@@ -74,7 +74,7 @@ def should_reduce_parity_bit():
         [1, 0, 0, 0, 1]
     ], "Should have simple parity bit"
 
-    assert reduce_parity_bit([
+    assert reduce_line_parity_bit([
         [0, 1, 0, 0],
         [1, 1, 1, 0],
         [1, 1, 1, 1],
