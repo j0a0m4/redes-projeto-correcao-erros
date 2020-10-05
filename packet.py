@@ -3,7 +3,7 @@ from functools import partial, reduce
 
 def is_even(number: int) -> bool:
     '''
-    isEven verifica se um número é par
+    is_even verifica se um número é par
 
     Argumentos:\n
     number: um número inteiro
