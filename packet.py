@@ -145,3 +145,12 @@ def code_packet(originalPacket: list) -> list:
 
     return lineParity.copy() + [columnParity.copy()]
 
+
+def remove_line_parity(originalPacket: list) -> list:
+    '''
+    remove_line_parity remove a linha de paridade da matriz
+
+    Argumentos: \n
+    originalPacket -- pacote original a ser codificado na forma de uma lista.
+    '''
+    return originalPacket[:-1]

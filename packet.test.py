@@ -173,6 +173,60 @@ def should_code_packet():
     ], "Should encode packet"
 
 
+def should_remove_line_parity():
+    assert remove_line_parity([
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 0, 1],
+        [0, 1, 0, 0, 1],
+        [1, 0, 1, 1, 1],
+        [1, 0, 0, 1]
+    ]) == [
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 0, 1],
+        [0, 1, 0, 0, 1],
+        [1, 0, 1, 1, 1]
+    ], "Should remove line parity"
+
+    assert remove_line_parity([
+        [0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 0],
+        [1, 1, 0, 0, 0],
+        [1, 0, 1, 0, 0],
+        [1, 0, 0, 1]
+    ]) == [
+        [0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 0],
+        [1, 1, 0, 0, 0],
+        [1, 0, 1, 0, 0],
+    ], "Should remove line parity"
+
+    assert remove_line_parity([
+        [0, 1, 0, 0, 1],
+        [1, 1, 0, 0, 0],
+        [0, 1, 1, 1, 1],
+        [1, 0, 1, 0, 0],
+        [0, 1, 0, 1]
+    ]) == [
+        [0, 1, 0, 0, 1],
+        [1, 1, 0, 0, 0],
+        [0, 1, 1, 1, 1],
+        [1, 0, 1, 0, 0]
+    ], "Should remove line parity"
+
+    assert remove_line_parity([
+        [0, 1, 1, 0, 0],
+        [1, 1, 1, 0, 1],
+        [1, 1, 1, 1, 0],
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 1]
+    ]) == [
+        [0, 1, 1, 0, 0],
+        [1, 1, 1, 0, 1],
+        [1, 1, 1, 1, 0],
+        [1, 0, 0, 0, 1],
+    ], "Should remove line parity"
+
+
 if __name__ == '__main__':
     should_generate_parity_bit()
     should_add_parity_bit()
@@ -182,4 +236,5 @@ if __name__ == '__main__':
     should_reduce_line_parity_bit()
     should_reduce_column_parity_bit()
     should_code_packet()
+    should_remove_line_parity()
     print("Testes passaram!")
