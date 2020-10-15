@@ -20,7 +20,7 @@ def is_odd(number: int) -> bool:
     return not is_even(number)
 
 
-def generate_parity_bit(packet: list) -> bool:
+def generate_parity_bit(packet: list) -> int:
     '''
     generate_parity_bit retorna o bit de paridade adequado para um pacote, usando a paridade par
 
@@ -29,7 +29,7 @@ def generate_parity_bit(packet: list) -> bool:
     '''
     totalOneBits: int = packet.count(1)
 
-    return is_odd(totalOneBits)
+    return int(is_odd(totalOneBits))
 
 
 def add_parity_bit(packet: list) -> list:
@@ -43,7 +43,17 @@ def add_parity_bit(packet: list) -> list:
     return packet.copy() + [generate_parity_bit(packet)]
 
 
-def get_parity_bit(packet: list) -> bool:
+def remove_parity_bit(packet: list) -> list:
+    '''
+    remove_parity_bit remove o bit de paridade de uma lista
+
+    Argumentos: \n
+    packet -- uma lista contendo os bits
+    '''
+    return packet[:-1]
+
+
+def get_parity_bit(packet: list) -> int:
     '''
     get_parity_bit retorna o bit de paridade de um packet (último elemento da lista)
 
@@ -134,3 +144,4 @@ def code_packet(originalPacket: list) -> list:
     lineParity: list = reduce_line_parity_bit(originalPacket)
 
     return lineParity.copy() + [columnParity.copy()]
+

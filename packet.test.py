@@ -22,6 +22,19 @@ def should_add_parity_bit():
         1, 1, 1, 1, 0], "Should add parity bit 0"
 
 
+def should_remove_parity_bit():
+    assert remove_parity_bit([0, 0, 0, 0, 0]) == [
+        0, 0, 0, 0], "Should remove parity bit"
+    assert remove_parity_bit([1, 0, 0, 0, 1]) == [
+        1, 0, 0, 0], "Should remove parity bit"
+    assert remove_parity_bit([1, 1, 0, 0, 1]) == [
+        1, 1, 0, 0], "Should remove parity bit"
+    assert remove_parity_bit([1, 1, 1, 0, 1]) == [
+        1, 1, 1, 0], "Should remove parity bit"
+    assert remove_parity_bit([1, 1, 1, 1, 0]) == [
+        1, 1, 1, 1], "Should remove parity bit"
+
+
 def should_check_packet_integrity():
     assert check_packet_integrity([0, 0, 0, 0, 0]) == True, "Should be True"
     assert check_packet_integrity([0, 0, 0, 0, 1]) == False, "Should be False"
@@ -163,6 +176,7 @@ def should_code_packet():
 if __name__ == '__main__':
     should_generate_parity_bit()
     should_add_parity_bit()
+    should_remove_parity_bit()
     should_check_packet_integrity()
     should_transpose_columns()
     should_reduce_line_parity_bit()
