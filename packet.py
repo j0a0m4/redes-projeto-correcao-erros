@@ -231,15 +231,15 @@ def fix_packet_error(packet: list, index: int) -> list:
     return newPacket
 
 
-def decode_packet(originalPacket: list) -> list:
+def decode_packet(transmittedPacket: list) -> list:
     '''
     decode_packet gera uma matriz removendo as paridades de linha e coluna do pacote e corrigindo possíveis erros
 
     Argumentos: \n
-    originalPacket -- pacote original a ser decodificado
+    transmittedPacket -- pacote original a ser decodificado
     '''
-    error_coordinates: list = get_error_coordinates(originalPacket)
-    stripped: list = strip_matrix(originalPacket)
+    error_coordinates: list = get_error_coordinates(transmittedPacket)
+    stripped: list = strip_matrix(transmittedPacket)
 
     storage: list = stripped.copy()
 
