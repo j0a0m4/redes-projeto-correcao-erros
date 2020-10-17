@@ -195,29 +195,57 @@ def strip_matrix(codedPacket: list) -> list:
     ]
 
 
-def decode_packet(codedPacket: list) -> list:
-    lines = transpose_columns(remove_column_parity(codedPacket))
-    columns = remove_line_parity(codedPacket)
-    lineIdx = get_error_index(lines)
-    columnIdx = get_error_index(columns)
+def get_error_coordinates(codedPacket: list) -> list:
+    '''
+     get_error_coordinates gera uma lista de tuplas contendo os valores de indíce da linha e da coluna que estão com erro
 
+    Argumentos: \n
+    codedPacket -- pacote codificado a ser descriptografado
+    '''
+    lines: list = transpose_columns(remove_column_parity(codedPacket))
+    columns: list = remove_line_parity(codedPacket)
 
-def get_error_index(matrix: list) -> int:
-    for i in range(len(matrix)):
-        packet = matrix[i]
-        if not check_packet_integrity(packet):
-            return i
+    coordinates: list = []
+
+    for i in range(len(columns)):
+        if not check_packet_integrity(columns[i]):
+            for j in range(len(lines)):
+                if not check_packet_integrity(lines[j]):
+                    coordinates.append((i, j))
+
+    return coordinates.copy()
 
 
 def fix_packet_error(packet: list, index: int) -> list:
-    fixedPacket: list = packet.copy()
-    bit: int = fixedPacket[index]
-    fixedPacket[index] = flip_bit(bit)
-    return fixedPacket
+    '''
+     fix_packet_error altera o bit da list packet no index especificado
+
+    Argumentos: \n
+    packet -- pacote codificado
+    index -- indice da lista a ter o bit trocado
+    '''
+    newPacket: list = packet.copy()
+    bit: int = newPacket[index]
+
+    newPacket[index] = flip_bit(bit)
+
+    return newPacket
 
 
-sample = [[0, 1, 1, 0, 0],
-          [1, 1, 1, 0, 1],
-          [1, 1, 1, 1, 0],
-          [1, 0, 0, 0, 1],
-          [1, 1, 1, 1]]
+def decode_packet(originalPacket: list) -> list:
+    '''
+    decode_packet gera uma matriz removendo as paridades de linha e coluna do pacote e corrigindo possíveis erros
+
+    Argumentos: \n
+    originalPacket -- pacote original a ser decodificado
+    '''
+    error_coordinates: list = get_error_coordinates(originalPacket)
+    stripped: list = strip_matrix(originalPacket)
+
+    storage: list = stripped.copy()
+
+    for i, j in error_coordinates:
+        packet: list = stripped[i]
+        storage[i] = fix_packet_error(packet, j)
+
+    return storage.copy()
