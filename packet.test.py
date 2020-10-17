@@ -233,6 +233,8 @@ def should_remove_line_parity():
 
 
 def should_remove_column_parity():
+    message: str = "Should remove column parity"
+
     assert remove_column_parity([
         [1, 0, 0, 0, 1],
         [1, 1, 1, 0, 1],
@@ -245,7 +247,7 @@ def should_remove_column_parity():
         [0, 1, 0, 0],
         [1, 0, 1, 1],
         [1, 0, 0, 1]
-    ], "Should remove column parity"
+    ], message
 
     assert remove_column_parity([
         [0, 0, 0, 0, 0],
@@ -259,7 +261,7 @@ def should_remove_column_parity():
         [1, 1, 0, 0],
         [1, 0, 1, 0],
         [1, 0, 0, 1]
-    ], "Should remove column parity"
+    ], message
 
     assert remove_column_parity([
         [0, 1, 0, 0, 1],
@@ -273,7 +275,7 @@ def should_remove_column_parity():
         [0, 1, 1, 1],
         [1, 0, 1, 0],
         [0, 1, 0, 1]
-    ], "Should remove column parity"
+    ], message
 
     assert remove_column_parity([
         [0, 1, 1, 0, 0],
@@ -287,11 +289,11 @@ def should_remove_column_parity():
         [1, 1, 1, 1],
         [1, 0, 0, 0],
         [1, 1, 1, 1]
-    ], "Should remove column parity"
+    ], message
 
 
 def should_strip_matrix():
-    message = "Should return stripped matrix"
+    message: str = "Should return stripped matrix"
 
     assert strip_matrix([
         [1, 0, 0, 0, 1],
@@ -344,6 +346,15 @@ def should_strip_matrix():
         [1, 1, 1, 1],
         [1, 0, 0, 0],
     ], message
+
+
+def should_fix_packet_error():
+    message: str = "Should fix packet error"
+
+    assert fix_packet_error([1, 1, 1, 0], 0) == [0, 1, 1, 0], message
+    assert fix_packet_error([1, 1, 1, 0], 1) == [1, 0, 1, 0], message
+    assert fix_packet_error([1, 1, 1, 0], 2) == [1, 1, 0, 0], message
+    assert fix_packet_error([1, 1, 1, 0], 3) == [1, 1, 1, 1], message
 
 
 if __name__ == '__main__':
@@ -358,4 +369,5 @@ if __name__ == '__main__':
     should_code_packet()
     should_remove_line_parity()
     should_remove_column_parity()
+    should_fix_packet_error()
     print("Testes passaram!")

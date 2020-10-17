@@ -228,7 +228,6 @@ def fix_packet_error(packet: list, index: int) -> list:
     bit: int = newPacket[index]
 
     newPacket[index] = flip_bit(bit)
-
     return newPacket
 
 
@@ -247,5 +246,4 @@ def decode_packet(originalPacket: list) -> list:
     for i, j in error_coordinates:
         packet: list = stripped[i]
         storage[i] = fix_packet_error(packet, j)
-
     return storage.copy()
