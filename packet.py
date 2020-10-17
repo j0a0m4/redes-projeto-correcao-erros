@@ -32,6 +32,17 @@ def generate_parity_bit(packet: list) -> int:
     return int(is_odd(totalOneBits))
 
 
+def flip_bit(bit: int) -> int:
+    '''
+    flip_bit muda o bit para sua contraparte
+
+    Argumentos: \n
+    bit -- numero inteiro 0 ou 1
+    '''
+    flipped: bool = not bool(bit)
+    return int(flipped)
+
+
 def add_parity_bit(packet: list) -> list:
     '''
     add_parity_bit retorna uma lista acrescentado do bit de paridade
@@ -154,3 +165,40 @@ def remove_line_parity(originalPacket: list) -> list:
     originalPacket -- pacote original a ser codificado na forma de uma lista.
     '''
     return originalPacket[:-1]
+
+
+def remove_column_parity(originalPacket: list) -> list:
+    '''
+    remove_column_parity remove a coluna de paridade da matriz
+
+    Argumentos: \n
+    originalPacket -- pacote original a ser codificado na forma de uma lista.
+    '''
+    return [
+        remove_parity_bit(packet)
+        if len(packet) > 4 else packet
+        for packet in originalPacket
+    ]
+
+
+def decode_packet(originalPacket: list) -> list:
+    lines = transpose_columns(remove_column_parity(sample))
+    columns = remove_line_parity(sample)
+
+
+def get_index_from_wrong_bit(lines: list, columns: list) -> int:
+    return 1
+
+
+def fix_packet_error(packet: list, index: int) -> list:
+    fixedPacket: list = packet.copy()
+    bit: int = fixedPacket[index]
+    fixedPacket[index] = flip_bit(bit)
+    return fixedPacket
+
+
+sample = [[0, 1, 1, 0, 0],
+          [1, 1, 1, 0, 1],
+          [1, 1, 1, 1, 0],
+          [1, 0, 0, 0, 1],
+          [1, 1, 1, 1]]

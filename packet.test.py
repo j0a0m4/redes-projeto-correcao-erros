@@ -227,8 +227,72 @@ def should_remove_line_parity():
     ], "Should remove line parity"
 
 
+def should_remove_column_parity():
+    assert remove_column_parity([
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 0, 1],
+        [0, 1, 0, 0, 1],
+        [1, 0, 1, 1, 1],
+        [1, 0, 0, 1]
+    ]) == [
+        [1, 0, 0, 0],
+        [1, 1, 1, 0],
+        [0, 1, 0, 0],
+        [1, 0, 1, 1],
+        [1, 0, 0, 1]
+    ], "Should remove column parity"
+
+    assert remove_column_parity([
+        [0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 0],
+        [1, 1, 0, 0, 0],
+        [1, 0, 1, 0, 0],
+        [1, 0, 0, 1]
+    ]) == [
+        [0, 0, 0, 0],
+        [1, 1, 1, 1],
+        [1, 1, 0, 0],
+        [1, 0, 1, 0],
+        [1, 0, 0, 1]
+    ], "Should remove column parity"
+
+    assert remove_column_parity([
+        [0, 1, 0, 0, 1],
+        [1, 1, 0, 0, 0],
+        [0, 1, 1, 1, 1],
+        [1, 0, 1, 0, 0],
+        [0, 1, 0, 1]
+    ]) == [
+        [0, 1, 0, 0],
+        [1, 1, 0, 0],
+        [0, 1, 1, 1],
+        [1, 0, 1, 0],
+        [0, 1, 0, 1]
+    ], "Should remove column parity"
+
+    assert remove_column_parity([
+        [0, 1, 1, 0, 0],
+        [1, 1, 1, 0, 1],
+        [1, 1, 1, 1, 0],
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 1]
+    ]) == [
+        [0, 1, 1, 0],
+        [1, 1, 1, 0],
+        [1, 1, 1, 1],
+        [1, 0, 0, 0],
+        [1, 1, 1, 1]
+    ], "Should remove column parity"
+
+
+def should_flip_bit():
+    assert flip_bit(1) == 0, "Should flip bit"
+    assert flip_bit(0) == 1, "Should flip bit"
+
+
 if __name__ == '__main__':
     should_generate_parity_bit()
+    should_flip_bit()
     should_add_parity_bit()
     should_remove_parity_bit()
     should_check_packet_integrity()
@@ -237,4 +301,5 @@ if __name__ == '__main__':
     should_reduce_column_parity_bit()
     should_code_packet()
     should_remove_line_parity()
+    should_remove_column_parity()
     print("Testes passaram!")
