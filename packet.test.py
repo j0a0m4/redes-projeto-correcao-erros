@@ -9,6 +9,11 @@ def should_generate_parity_bit():
     assert generate_parity_bit([1, 1, 1, 1]) == 0, "Should be 0"
 
 
+def should_flip_bit():
+    assert flip_bit(1) == 0, "Should flip bit"
+    assert flip_bit(0) == 1, "Should flip bit"
+
+
 def should_add_parity_bit():
     assert add_parity_bit([0, 0, 0, 0]) == [
         0, 0, 0, 0, 0], "Should add parity bit 0"
@@ -285,9 +290,60 @@ def should_remove_column_parity():
     ], "Should remove column parity"
 
 
-def should_flip_bit():
-    assert flip_bit(1) == 0, "Should flip bit"
-    assert flip_bit(0) == 1, "Should flip bit"
+def should_strip_matrix():
+    message = "Should return stripped matrix"
+
+    assert strip_matrix([
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 0, 1],
+        [0, 1, 0, 0, 1],
+        [1, 0, 1, 1, 1],
+        [1, 0, 0, 1]
+    ]) == [
+        [1, 0, 0, 0],
+        [1, 1, 1, 0],
+        [0, 1, 0, 0],
+        [1, 0, 1, 1],
+    ], message
+
+    assert strip_matrix([
+        [0, 0, 0, 0, 0],
+        [1, 1, 1, 1, 0],
+        [1, 1, 0, 0, 0],
+        [1, 0, 1, 0, 0],
+        [1, 0, 0, 1]
+    ]) == [
+        [0, 0, 0, 0],
+        [1, 1, 1, 1],
+        [1, 1, 0, 0],
+        [1, 0, 1, 0],
+    ], message
+
+    assert strip_matrix([
+        [0, 1, 0, 0, 1],
+        [1, 1, 0, 0, 0],
+        [0, 1, 1, 1, 1],
+        [1, 0, 1, 0, 0],
+        [0, 1, 0, 1]
+    ]) == [
+        [0, 1, 0, 0],
+        [1, 1, 0, 0],
+        [0, 1, 1, 1],
+        [1, 0, 1, 0],
+    ], message
+
+    assert strip_matrix([
+        [0, 1, 1, 0, 0],
+        [1, 1, 1, 0, 1],
+        [1, 1, 1, 1, 0],
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 1]
+    ]) == [
+        [0, 1, 1, 0],
+        [1, 1, 1, 0],
+        [1, 1, 1, 1],
+        [1, 0, 0, 0],
+    ], message
 
 
 if __name__ == '__main__':

@@ -181,13 +181,32 @@ def remove_column_parity(originalPacket: list) -> list:
     ]
 
 
-def decode_packet(originalPacket: list) -> list:
-    lines = transpose_columns(remove_column_parity(sample))
-    columns = remove_line_parity(sample)
+def strip_matrix(codedPacket: list) -> list:
+    '''
+    strip_matrix remove os bits de paridade dos packets
+
+    Argumentos: \n
+    codedPacket -- pacote codificado a ser descriptografado
+    '''
+    return [
+        remove_parity_bit(packet)
+        for packet in codedPacket
+        if len(packet) > 4
+    ]
 
 
-def get_index_from_wrong_bit(lines: list, columns: list) -> int:
-    return 1
+def decode_packet(codedPacket: list) -> list:
+    lines = transpose_columns(remove_column_parity(codedPacket))
+    columns = remove_line_parity(codedPacket)
+    lineIdx = get_error_index(lines)
+    columnIdx = get_error_index(columns)
+
+
+def get_error_index(matrix: list) -> int:
+    for i in range(len(matrix)):
+        packet = matrix[i]
+        if not check_packet_integrity(packet):
+            return i
 
 
 def fix_packet_error(packet: list, index: int) -> list:
