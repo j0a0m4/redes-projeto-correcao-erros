@@ -121,63 +121,6 @@ def should_reduce_column_parity_bit():
     ]) == [0, 1, 0, 1], "Should create parity bit column list"
 
 
-def should_code_packet():
-    assert code_packet([
-        [0, 1, 1, 0],
-        [1, 1, 1, 0],
-        [1, 1, 1, 1],
-        [1, 0, 0, 0]
-    ]) == [
-        [0, 1, 1, 0, 0],
-        [1, 1, 1, 0, 1],
-        [1, 1, 1, 1, 0],
-        [1, 0, 0, 0, 1],
-        [1, 1, 1, 1]
-
-    ], "Should encode packet"
-
-    assert code_packet([
-        [0, 1, 0, 0],
-        [1, 1, 0, 0],
-        [0, 1, 1, 1],
-        [1, 0, 1, 0]
-    ]) == [
-        [0, 1, 0, 0, 1],
-        [1, 1, 0, 0, 0],
-        [0, 1, 1, 1, 1],
-        [1, 0, 1, 0, 0],
-        [0, 1, 0, 1]
-
-    ], "Should encode packet"
-
-    assert code_packet([
-        [0, 0, 0, 0],
-        [1, 1, 1, 1],
-        [1, 1, 0, 0],
-        [1, 0, 1, 0]
-    ]) == [
-        [0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 0],
-        [1, 1, 0, 0, 0],
-        [1, 0, 1, 0, 0],
-        [1, 0, 0, 1]
-
-    ], "Should encode packet"
-
-    assert code_packet([
-        [1, 0, 0, 0],
-        [1, 1, 1, 0],
-        [0, 1, 0, 0],
-        [1, 0, 1, 1]
-    ]) == [
-        [1, 0, 0, 0, 1],
-        [1, 1, 1, 0, 1],
-        [0, 1, 0, 0, 1],
-        [1, 0, 1, 1, 1],
-        [1, 0, 0, 1]
-    ], "Should encode packet"
-
-
 def should_remove_line_parity():
     assert remove_line_parity([
         [1, 0, 0, 0, 1],
@@ -357,27 +300,6 @@ def should_fix_packet_error():
     assert fix_packet_error([1, 1, 1, 0], 3) == [1, 1, 1, 1], message
 
 
-def should_decode_packet():
-    message: str = "Should decode packet and fix error"
-
-    sample: list = [
-        [0, 1, 1, 0, 0],
-        [1, 1, 1, 0, 1],
-        [1, 1, 1, 1, 0],
-        [1, 0, 0, 0, 1],
-        [1, 1, 1, 1]
-    ]
-
-    expected = strip_matrix(sample)
-
-    # Introducing error
-    sample[3][2] = flip_bit(sample[3][2])
-
-    result: list = decode_packet(sample)
-
-    assert result == expected, message
-
-
 if __name__ == '__main__':
     should_generate_parity_bit()
     should_flip_bit()
@@ -387,9 +309,7 @@ if __name__ == '__main__':
     should_transpose_columns()
     should_reduce_line_parity_bit()
     should_reduce_column_parity_bit()
-    should_code_packet()
     should_remove_line_parity()
     should_remove_column_parity()
     should_fix_packet_error()
-    should_decode_packet()
     print("Testes passaram!")
