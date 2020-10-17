@@ -106,13 +106,8 @@ def transpose_columns(packetMatrix: list) -> list:
     Argumentos: \n
     packetMatrix -- uma lista de listas (matriz)
     '''
-    height: int = len(packetMatrix)
-    width: int = len(packetMatrix[0])
-
-    return [
-        [packetMatrix[j][i] for j in range(height)]
-        for i in range(width)
-    ]
+    zipped = zip(*packetMatrix)
+    return [list(row) for row in zipped]
 
 
 def reduce_line_parity_bit(packetMatrix: list) -> list:
@@ -150,9 +145,10 @@ def code_packet(originalPacket: list) -> list:
     Argumentos: \n
     originalPacket -- pacote original a ser codificado na forma de uma lista.
     '''
+    splitted: list = split_stream(originalPacket)
 
-    columnParity: list = reduce_column_parity_bit(originalPacket)
-    lineParity: list = reduce_line_parity_bit(originalPacket)
+    columnParity: list = reduce_column_parity_bit(splitted)
+    lineParity: list = reduce_line_parity_bit(splitted)
 
     return lineParity.copy() + [columnParity.copy()]
 
@@ -238,8 +234,9 @@ def decode_packet(transmittedPacket: list) -> list:
     Argumentos: \n
     transmittedPacket -- pacote original a ser decodificado
     '''
-    error_coordinates: list = get_error_coordinates(transmittedPacket)
-    stripped: list = strip_matrix(transmittedPacket)
+    splitted: list = split_stream(flat_map(transmittedPacket))
+    error_coordinates: list = get_error_coordinates(splitted)
+    stripped: list = strip_matrix(splitted)
 
     storage: list = stripped.copy()
 
@@ -247,3 +244,24 @@ def decode_packet(transmittedPacket: list) -> list:
         packet: list = stripped[i]
         storage[i] = fix_packet_error(packet, j)
     return storage.copy()
+
+
+def split_stream(originalPacket: list) -> list:
+    splittedPacket: list = []
+    while len(originalPacket):
+        storage: list = []
+        for i in range(len(originalPacket)):
+            storage.append(originalPacket.pop())
+        splittedPacket.append(storage)
+    return splittedPacket
+
+
+def flat_map(elements: list) -> list:
+    flattened: list = []
+    for element in elements:
+        if type(element) == int:
+            flattened.append(element)
+        else:
+            for num in element:
+                flattened.append(num)
+    return flattened
