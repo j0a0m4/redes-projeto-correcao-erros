@@ -1,6 +1,7 @@
 import random
 import math
 import sys
+from packet import decode_packet, code_packet
 
 #########
 # Implementacao um esquema sem qualquer metodo de codificao.
@@ -30,7 +31,7 @@ def codePacket(originalPacket):
     # Cada entrada na lista representa um bit do pacote (inteiro 0 ou 1).
     # Valor de retorno: pacote codificado no mesmo formato.
     ##
-    return ...
+    return code_packet(originalPacket)
 
 ##
 # Executa decodificacao do pacote transmittedPacket, gerando
@@ -48,7 +49,7 @@ def decodePacket(transmittedPacket):
     # (inteiro 0 ou 1).
     # Valor de retorno: pacote decodificado no mesmo formato.
     ##
-    return ...
+    return decode_packet(transmittedPacket)
 
 ###
 ##
