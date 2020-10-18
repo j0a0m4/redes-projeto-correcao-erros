@@ -247,6 +247,12 @@ def decode_packet(transmittedPacket: list) -> list:
 
 
 def split_stream(originalPacket: list) -> list:
+    '''
+    split_stream transforma a lista de packets em uma lista de lista de packets
+
+    Argumentos: \n
+    originalPacket -- pacote original a ser transformado
+    '''
     splittedPacket: list = []
     while len(originalPacket):
         storage: list = []
@@ -257,6 +263,12 @@ def split_stream(originalPacket: list) -> list:
 
 
 def flat_map(elements: list) -> list:
+    '''
+    flat_map desaninha as listas dentro da lista de elementos
+
+    Argumentos: \n
+    originalPacket -- pacote original a ser transformado
+    '''
     flattened: list = []
     for element in elements:
         if type(element) == int:
